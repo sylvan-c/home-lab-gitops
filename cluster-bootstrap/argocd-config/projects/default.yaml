@@ -7,8 +7,6 @@ spec:
   description: Default homelab project managing all applications
   orphanedResources:
     warn: true
-    ignore:
-      - namespace: argocd
   sourceRepos:
     - '*'
   destinations:
