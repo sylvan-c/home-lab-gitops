@@ -13,10 +13,8 @@ spec:
     path: apps/helloworld
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: homelab
+    namespace: helloworld
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

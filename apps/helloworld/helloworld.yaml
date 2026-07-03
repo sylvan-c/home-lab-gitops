@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helloworld-deployment
-  namespace: homelab
+  namespace: helloworld
 spec:
   replicas: 1
   selector:
@@ -18,12 +18,19 @@ spec:
         image: stefanprodan/podinfo:latest
         ports:
         - containerPort: 9898
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "50Mi"
+          limits:
+            cpu: "100m"
+            memory: "100Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: helloworld-service
-  namespace: homelab
+  namespace: helloworld
 spec:
   type: LoadBalancer
   ports:

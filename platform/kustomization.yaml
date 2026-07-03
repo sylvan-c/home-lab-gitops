@@ -4,3 +4,4 @@ resources:
   - projects/default.yaml
   - applications/argocd.yaml
   - applications/helloworld.yaml
+  - applications/namespaces.yaml
