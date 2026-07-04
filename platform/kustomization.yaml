@@ -7,3 +7,4 @@ resources:
   - applications/argocd.yaml
   - applications/helloworld.yaml
   - applications/pihole.yaml
+  - applications/traefik.yaml

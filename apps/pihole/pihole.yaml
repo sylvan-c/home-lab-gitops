@@ -89,8 +89,7 @@ metadata:
   name: pihole-service
   namespace: pihole
 spec:
-  loadBalancerIP: 192.168.1.202
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
       protocol: TCP
@@ -110,3 +109,22 @@ spec:
       protocol: UDP
   selector:
     app: pihole
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pihole-ingress
+  namespace: pihole
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pihole.home.lab
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pihole-service
+                port:
+                  number: 80
