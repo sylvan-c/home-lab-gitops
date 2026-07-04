@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - projects/default.yaml
   - applications/namespaces.yaml
+  - applications/metallb.yaml
   - applications/argocd.yaml
   - applications/helloworld.yaml
   - applications/pihole.yaml
