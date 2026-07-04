@@ -4,3 +4,4 @@ resources:
   - metallb-ns.yaml
   - helloworld-ns.yaml
   - pihole-ns.yaml
+  - wg-easy-ns.yaml
