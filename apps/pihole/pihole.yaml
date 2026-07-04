@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-config-pvc
+  namespace: pihole
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-dnsmasq-pvc
+  namespace: pihole
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole-deployment
+  namespace: pihole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      containers:
+      - name: pihole
+        image: pihole/pihole:latest
+        ports:
+          - name: web-http
+            containerPort: 80
+          - name: web-https
+            containerPort: 443
+          - name: dns-tcp
+            containerPort: 53
+            protocol: TCP
+          - name: dns-udp
+            containerPort: 53
+            protocol: UDP
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        env:
+        - name: TZ
+          value: 'Europe/London'
+        - name: FTLCONF_dns_listeningMode
+          value: 'ALL'
+        - name: PIHOLE_DNS_1
+          value: 8.8.8.8
+        - name: PIHOLE_DNS_2
+          value: 8.8.4.4
+        tty: true
+        volumeMounts:
+          - name: pihole-config-volume
+            mountPath: /etc/pihole
+          - name: pihole-dnsmasq-volume
+            mountPath: /etc/dnsmasq.d
+      volumes:
+        - name: pihole-config-volume
+          persistentVolumeClaim:
+            claimName: pihole-config-pvc
+        - name: pihole-dnsmasq-volume
+          persistentVolumeClaim:
+            claimName: pihole-dnsmasq-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-service
+  namespace: pihole
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: pihole
