@@ -1,0 +1,9 @@
+apiVersion: v2
+name: traefik-wrapper
+description: Umbrella chart for Traefik Ingress
+type: application
+version: 1.0.0
+dependencies:
+  - name: traefik
+    version: 41.0.0
+    repository: https://helm.traefik.io/traefik

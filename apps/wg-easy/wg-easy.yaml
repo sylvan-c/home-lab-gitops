@@ -22,7 +22,7 @@ spec:
           # Specify external hostname and port as environment variables
           env:
             - name: WG_HOST
-              value: wg.home.lab
+              value: 192.168.1.204
             - name: WG_PORT
               value: "30000"
           image: ghcr.io/wg-easy/wg-easy
@@ -111,24 +111,21 @@ spec:
     app: wg-easy
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
 metadata:
-  name: wg-easy-ingress
-  namespace: wg-easy
+  name: wg-easy-http
+  namespace: argocd
 spec:
-  ingressClassName: traefik
-  rules:
-    - host: wg.home.lab
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: wg-easy-http
-                port:
-                  number: 51821
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`wg.home.lab`)
+      kind: Rule
+      services:
+        - name: wg-easy-http
+          port: 80
+  tls: {}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

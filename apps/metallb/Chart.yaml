@@ -1,0 +1,9 @@
+apiVersion: v2
+name: metallb-wrapper
+description: Umbrella chart for managing MetalLB and its pools
+type: application
+version: 1.0.0
+dependencies:
+  - name: metallb
+    version: 0.16.1
+    repository: https://metallb.github.io/metallb
