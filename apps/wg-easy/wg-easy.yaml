@@ -106,7 +106,7 @@ spec:
     - name: http
       port: 51821
       protocol: TCP
-      targetPort: http
+      targetPort: 51821
   selector:
     app: wg-easy
   type: ClusterIP
@@ -115,7 +115,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: wg-easy-http
-  namespace: argocd
+  namespace: wg-easy
 spec:
   entryPoints:
     - web
@@ -124,8 +124,7 @@ spec:
       kind: Rule
       services:
         - name: wg-easy-http
-          port: 80
-  tls: {}
+          port: 51821
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

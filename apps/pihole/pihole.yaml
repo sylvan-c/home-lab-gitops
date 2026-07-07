@@ -115,10 +115,6 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
   selector:
     app: pihole
 ---
@@ -128,8 +124,10 @@ metadata:
   name: pihole-redirect
   namespace: pihole
 spec:
-  addPrefix:
-    prefix: /admin
+  redirectRegex:
+    regex: "^https?://pihole.home.lab/?$"
+    replacement: "https://pihole.home.lab/admin/"
+    permanent: true
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -139,8 +137,9 @@ metadata:
 spec:
   entryPoints:
     - web
+    - websecure
   routes:
-    # Rule 1: Catch users going to the bare domain and push them to /admin
+    # Rule 1: Catch users hitting the bare domain and bounce their actual browser to /admin/
     - match: Host(`pihole.home.lab`) && Path(`/`)
       kind: Rule
       middlewares:
@@ -149,8 +148,8 @@ spec:
         - name: pihole-web
           port: 80
 
-    # Rule 2: Pass all standard dashboard and API traffic through cleanly
-    - match: Host(`pihole.home.lab`) && (PathPrefix(`/admin`) || PathPrefix(`/pihole`))
+    # Rule 2: Pass everything under /admin cleanly to the backend container
+    - match: Host(`pihole.home.lab`) && PathPrefix(`/admin`)
       kind: Rule
       services:
         - name: pihole-web
