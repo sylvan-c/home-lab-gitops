@@ -33,6 +33,10 @@ spec:
           value: "false"
         - name: DETECTION_PERIOD
           value: "5m"
+        - name: IP6_PROVIDER
+          value: "none"
+        - name: SKIP_TOKEN_CHECK
+          value: "true"
         resources:
           limits:
             memory: 64Mi
