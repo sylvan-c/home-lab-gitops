@@ -138,7 +138,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # Rule 1: Catch users hitting the bare domain and bounce their actual browser to /admin/
+    # Rule 1: Catch users hitting the bare root domain and redirect them
     - match: Host(`pihole.home.lab`) && Path(`/`)
       kind: Rule
       middlewares:
@@ -147,8 +147,8 @@ spec:
         - name: pihole-web
           port: 80
 
-    # Rule 2: Pass everything under /admin cleanly to the backend container
-    - match: Host(`pihole.home.lab`) && PathPrefix(`/admin`)
+    # Rule 2: Catch EVERYTHING else (including /admin, /api, /api/auth, etc.)
+    - match: Host(`pihole.home.lab`)
       kind: Rule
       services:
         - name: pihole-web
