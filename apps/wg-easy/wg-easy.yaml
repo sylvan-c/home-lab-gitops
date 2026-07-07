@@ -119,12 +119,14 @@ metadata:
 spec:
   entryPoints:
     - web
+    - websecure
   routes:
     - match: Host(`wg.home.lab`)
       kind: Rule
       services:
         - name: wg-easy-http
           port: 51821
+  tls: {}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
