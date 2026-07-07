@@ -6,3 +6,4 @@ resources:
   - pihole-ns.yaml
   - wg-easy-ns.yaml
   - cloudflare-ddns-ns.yaml
+  - cert-manager-ns.yaml
