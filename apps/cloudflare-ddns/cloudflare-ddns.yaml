@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: cloudflare-ddns
+  labels:
+    app: cloudflare-ddns
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app: cloudflare-ddns
+    spec:
+      containers:
+      - name: ddns
+        image: favonia/cloudflare-ddns:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: CLOUDFLARE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: cloudflare-api-secret
+              key: api-token
+        - name: DOMAINS
+          value: "sylvanc.xyz,*.sylvanc.xyz"
+        - name: PROXIED
+          value: "false"
+        - name: DETECTION_PERIOD
+          value: "5m"
+        resources:
+          limits:
+            memory: 64Mi
+            cpu: 100m
+          requests:
+            memory: 32Mi
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000

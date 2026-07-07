@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloudflare-ddns
+  labels:
+    app.kubernetes.io/managed-by: argocd
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: cloudflare-ddns-quota
+  namespace: cloudflare-ddns
+spec:
+  hard:
+    limits.cpu: "100m"
+    limits.memory: "64Mi"

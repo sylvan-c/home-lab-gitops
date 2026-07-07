@@ -5,3 +5,4 @@ resources:
   - helloworld-ns.yaml
   - pihole-ns.yaml
   - wg-easy-ns.yaml
+  - cloudflare-ddns-ns.yaml

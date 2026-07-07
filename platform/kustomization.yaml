@@ -8,4 +8,5 @@ resources:
   - applications/helloworld.yaml
   - applications/pihole.yaml
   - applications/wg-easy.yaml
+  - applications/cloudflare-ddns.yaml
   - applications/traefik.yaml
