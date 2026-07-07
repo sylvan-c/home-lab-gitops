@@ -24,7 +24,7 @@ spec:
             - name: WG_HOST
               value: 192.168.1.204
             - name: WG_PORT
-              value: "30000"
+              value: "51820"
           image: ghcr.io/wg-easy/wg-easy
           imagePullPolicy: IfNotPresent
           ports:
@@ -87,10 +87,9 @@ metadata:
 spec:
   ports:
     - name: wg
-      port: 30000
-      nodePort: 30000
+      port: 51820
       protocol: UDP
-      targetPort: wg
+      targetPort: 51820
   selector:
     app: wg-easy
   type: LoadBalancer
