@@ -9,6 +9,20 @@ echo "===================================================="
 echo " Starting K3s Bootstrapping: MetalLB & ArgoCD       "
 echo "===================================================="
 
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
+
+if ! command -v helm &> /dev/null; then
+  echo "--> Helm not found. Installing via official script..."
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+  chmod 700 get_helm.sh
+  ./get_helm.sh --no-sudo # Installs to /usr/local/bin
+  rm get_helm.sh
+fi
+
 # 1. Add and Update Helm Repositories
 echo "--> Adding Helm repositories..."
 helm repo add metallb https://metallb.github.io/metallb
