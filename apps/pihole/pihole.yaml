@@ -136,7 +136,6 @@ metadata:
   namespace: pihole
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     # Rule 1: Catch users hitting the bare domain and bounce their actual browser to /admin/
@@ -154,3 +153,5 @@ spec:
       services:
         - name: pihole-web
           port: 80
+          passHostHeader: true
+  tls: {}
