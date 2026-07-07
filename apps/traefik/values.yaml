@@ -1,4 +1,6 @@
 traefik:
+  nameOverride: "traefik"
+  fullnameOverride: "traefik"
   global:
     checkNewVersion: false
     sendAnonymousUsage: false

@@ -1,2 +1,3 @@
 metallb:
-  # empty for now
+  nameOverride: "metallb"
+  fullnameOverride: "metallb"

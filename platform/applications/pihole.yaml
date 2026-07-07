@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pihole-app
+  name: pihole
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"

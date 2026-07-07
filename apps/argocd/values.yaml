@@ -1,4 +1,6 @@
 argo-cd:
+  nameOverride: "argocd"
+  fullnameOverride: "argocd"
   server:
     service:
       type: ClusterIP
