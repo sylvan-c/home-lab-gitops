@@ -3,29 +3,3 @@ cert-manager:
   fullnameOverride: "cert-manager"
 
   installCRDs: true
-
-  resources:
-    limits:
-        cpu: 200m
-        memory: 256Mi
-    requests:
-      cpu: 10m
-      memory: 64Mi
-
-  webhook:
-    resources:
-      limits:
-        cpu: 200m
-        memory: 256Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-
-  cainjector:
-    resources:
-      limits:
-        cpu: 200m
-        memory: 256Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
