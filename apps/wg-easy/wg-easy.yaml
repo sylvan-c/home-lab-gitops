@@ -120,7 +120,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`wg.home.lab`)
+    - match: Host(`wg.sylvanc.xyz`)
       kind: Rule
       services:
         - name: wg-easy-http

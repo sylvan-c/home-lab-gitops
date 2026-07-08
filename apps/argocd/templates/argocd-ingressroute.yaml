@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.home.lab`)
+    - match: Host(`argocd.sylvanc.xyz`)
       kind: Rule
       services:
         - name: argocd-server

@@ -125,8 +125,8 @@ metadata:
   namespace: pihole
 spec:
   redirectRegex:
-    regex: "^https?://pihole.home.lab/?$"
-    replacement: "https://pihole.home.lab/admin/"
+    regex: "^https?://pihole.sylvanc.xyz/?$"
+    replacement: "https://pihole.sylvanc.xyz/admin/"
     permanent: true
 ---
 apiVersion: traefik.io/v1alpha1
@@ -139,7 +139,7 @@ spec:
     - websecure
   routes:
     # Rule 1: Catch users hitting the bare root domain and redirect them
-    - match: Host(`pihole.home.lab`) && Path(`/`)
+    - match: Host(`pihole.sylvanc.xyz`) && Path(`/`)
       kind: Rule
       middlewares:
         - name: pihole-redirect
@@ -148,7 +148,7 @@ spec:
           port: 80
 
     # Rule 2: Catch EVERYTHING else (including /admin, /api, /api/auth, etc.)
-    - match: Host(`pihole.home.lab`)
+    - match: Host(`pihole.sylvanc.xyz`)
       kind: Rule
       services:
         - name: pihole-web
