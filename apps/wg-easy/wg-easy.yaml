@@ -22,7 +22,7 @@ spec:
           # Specify external hostname and port as environment variables
           env:
             - name: WG_HOST
-              value: 192.168.1.204
+              value: wg.sylvanc.xyz
             - name: WG_PORT
               value: "51820"
           image: ghcr.io/wg-easy/wg-easy
