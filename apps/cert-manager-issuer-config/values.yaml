@@ -4,5 +4,5 @@ acmeServer: "https://acme-v02.api.letsencrypt.org/directory"
 
 cloudflare:
   secretKey: "api-token"
-  secretName: "cloudflare-api-secret"
-  issuerName: "letsencrypt-dns01"
+  secretName: "cloudflare-api-token-secret"
+  issuerName: "letsencrypt-cloudflare"

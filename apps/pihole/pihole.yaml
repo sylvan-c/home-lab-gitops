@@ -129,6 +129,19 @@ spec:
     replacement: "https://pihole.sylvanc.xyz/admin/"
     permanent: true
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pihole-tls-cert
+  namespace: pihole
+spec:
+  secretName: pihole-tls-cert
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+  - pihole.sylvanc.xyz
+---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -154,4 +167,5 @@ spec:
         - name: pihole-web
           port: 80
           passHostHeader: true
-  tls: {}
+  tls:
+    secretName: pihole-tls-cert
