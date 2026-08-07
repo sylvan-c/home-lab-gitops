@@ -1,24 +1,30 @@
+{{- range $apps := .Values.apps}}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudflare-ddns
+  name: {{ $apps.name }}
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "{{ $apps.syncWave }}"
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: 'https://github.com/sylvan-c/home-lab-gitops.git'
     targetRevision: main
-    path: apps/cloudflare-ddns
+    path: {{ $apps.path }}
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: cloudflare-ddns
+{{- if $apps.ns }}
+    namespace: {{ $apps.ns }}
+{{- end }}
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
+      - CreateNamespace=true
+{{- end }}

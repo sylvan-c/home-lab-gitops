@@ -1,0 +1,36 @@
+apps:
+  - name: namespaces
+    syncWave: 0
+    path: platform/namespaces
+  - name: metallb
+    ns: metallb-system
+    syncWave: 1
+    path: apps/metallb
+  - name: traefik
+    ns: kube-system
+    syncWave: 1
+    path: apps/traefik
+  - name: argocd
+    ns: argocd
+    syncWave: 3
+    path: apps/argocd
+  - name: cert-manager
+    ns: cert-manager
+    syncWave: 4
+    path: apps/cert-manager
+  - name: cloudflare-ddns
+    ns: cloudflare-ddns
+    syncWave: 4
+    path: apps/cloudflare-ddns
+  - name: helloworld
+    ns: helloworld
+    syncWave: 4
+    path: apps/helloworld
+  - name: pihole
+    ns: pihole
+    syncWave: 4
+    path: apps/pihole
+  - name: wg-easy
+    ns: wg-easy
+    syncWave: 4
+    path: apps/wg-easy
