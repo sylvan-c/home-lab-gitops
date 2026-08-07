@@ -3,3 +3,13 @@ cert-manager:
   fullnameOverride: "cert-manager"
 
   installCRDs: true
+
+issuerConfig:
+  email: "sylvanchouhan@gmail.com"
+
+  acmeServer: "https://acme-v02.api.letsencrypt.org/directory"
+
+  cloudflare:
+    secretKey: "api-token"
+    secretName: "cloudflare-api-token-secret"
+    issuerName: "letsencrypt-cloudflare"

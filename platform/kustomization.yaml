@@ -11,4 +11,3 @@ resources:
   - applications/cloudflare-ddns.yaml
   - applications/traefik.yaml
   - applications/cert-manager.yaml
-  - applications/cert-manager-issuer-config.yaml
