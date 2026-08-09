@@ -34,3 +34,7 @@ apps:
     ns: wg-easy
     syncWave: 4
     path: apps/wg-easy
+  - name: immich
+    ns: immich
+    syncWave: 4
+    path: apps/immich
